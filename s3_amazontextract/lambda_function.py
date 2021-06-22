@@ -5,9 +5,7 @@ client = boto3.client('textract')
 client_s3 = boto3.client('s3')
 
 
-key='output2/'
-
-#name=name_file.split('.')[0]
+key='output3/'
 
 def lambda_handler(event, context):
     # TODO implement
@@ -42,10 +40,6 @@ def lambda_handler(event, context):
     response2 = client.get_document_text_detection(
     JobId=jobid
     )
-    #print(response2)
-    #print(response)
-    #print(response2['Blocks'][0])
-    #print(response2['Blocks'])
     
     l=response2['Blocks']
     s_line=''
@@ -55,11 +49,6 @@ def lambda_handler(event, context):
             s_line=s_line+i['Text']+';'
         elif i['BlockType']=='WORD':
             s_word=s_word+i['Text']+';'
-    
-    print('line wise text extraction..')
-    print(s_line)
-    print('word wise text extraction..')
-    print(s_word)
     
     
     key_line=key+name+'_linewise'+'.txt'
